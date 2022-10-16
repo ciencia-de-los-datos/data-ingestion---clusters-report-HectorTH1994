@@ -23,16 +23,19 @@ def ingest_data():
                     on_bad_lines='skip',
                     #colspecs="infer",
                     #names=column_names,
-                     widths=[9, 15, 15,70])
+                     widths=[9, 15, 15,79])
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
+
     df=df.drop([0, 1],axis=0).reset_index(drop=True)
+    #print(df['principales palabras clave'][1])
     prueba=[]
     prueba.append(['cluster'])
     prueba.append(['cantidad de palabras clave'])
     prueba.append(['porcentaje de palabras clave'])
     prueba.append(['principales palabras clave'])
     aux=0
-    df = pd.DataFrame(df)\
+    df = pd.DataFrame(df)
+    
 
     for i in range(len(df['cluster'])):
 
@@ -51,20 +54,24 @@ def ingest_data():
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
     df=df.drop([0],axis=0).reset_index(drop=True)
     aux=0;
+
     for i in df['principales palabras clave']:
         df['principales palabras clave'][aux]=','.join(i)
         aux+=1
+    
     aux=0
     for i in df['principales palabras clave']:
-        dd=[]
-        xx=i.split(',')
-        xxx=[x.split(' ') for x in xx]
-        xxxx=[' '.join(x) for x in xxx]
-        df['principales palabras clave'][aux]= ','.join(xxxx)
-        #" ".join((((("".join(df["principales palabras clave"])).split(','))).split()))
+        xx=i.replace('       ',' ')
+        xx=i.replace('      ',' ')
+        xx=i.replace('     ',' ')
+        xx=xx.replace('    ',' ')
+        xx=xx.replace('   ',' ')
+        xx=xx.replace('  ',' ')
+        xx=xx.replace(',,',', ')
+        df['principales palabras clave'][aux]= xx
+        
         aux+=1
-    df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave')
-
+    df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras clave', 'principales_palabras_clave')
     return df
 print(ingest_data().principales_palabras_clave.to_list()[0])
 print("maximum power point tracking, fuzzy-logic based control, photo voltaic (pv), photo-voltaic system, differential evolution algorithm, evolutionary algorithm, double-fed induction generator (dfig), ant colony optimisation, photo voltaic array, firefly algorithm, partial shade")
