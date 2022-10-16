@@ -63,4 +63,5 @@ def ingest_data():
         df['principales palabras clave'][aux]= ','.join(xxxx)
         #" ".join((((("".join(df["principales palabras clave"])).split(','))).split()))
         aux+=1
+    df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave')
     return df
