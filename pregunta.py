@@ -23,7 +23,7 @@ def ingest_data():
                     on_bad_lines='skip',
                     #colspecs="infer",
                     #names=column_names,
-                     widths=[9, 15, 15,79])
+                     widths=[9, 15, 15,80])
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
 
     df=df.drop([0, 1],axis=0).reset_index(drop=True)
@@ -48,7 +48,7 @@ def ingest_data():
             prueba[1].extend([int(df['cantidad de palabras clave'][i])])
             prueba[2].extend([float(df['porcentaje de palabras clave'][i].replace(' %','').replace(',','.'))])
             prueba[3].extend([[df['principales palabras clave'][i]]])
-
+    
     df = pd.DataFrame(prueba)
     df=df.transpose() 
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
@@ -56,9 +56,9 @@ def ingest_data():
     aux=0;
 
     for i in df['principales palabras clave']:
-        df['principales palabras clave'][aux]=','.join(i)
+        df['principales palabras clave'][aux]=' '.join(i)
         aux+=1
-    
+    #print(df['principales palabras clave'][0])
     aux=0
     for i in df['principales palabras clave']:
         xx=i.replace('       ',' ')
@@ -67,9 +67,13 @@ def ingest_data():
         xx=xx.replace('    ',' ')
         xx=xx.replace('   ',' ')
         xx=xx.replace('  ',' ')
-        xx=xx.replace(',,',', ')
+        xx=xx.replace('.','')
         df['principales palabras clave'][aux]= xx
         
         aux+=1
     df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave')
     return df
+ingest_data()  
+#print(ingest_data().principales_palabras_clave.to_list()[0])
+#print("maximum power point tracking, fuzzy-logic based control, photo voltaic (pv), photo-voltaic system, differential evolution algorithm, evolutionary algorithm, double-fed induction generator (dfig), ant colony optimisation, photo voltaic array, firefly algorithm, partial shade")
+    
