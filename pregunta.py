@@ -26,11 +26,31 @@ def ingest_data():
                      widths=[9, 15, 15,70])
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
     df=df.drop([0, 1],axis=0).reset_index(drop=True)
-    
-    df = pd.DataFrame(df)
+    prueba=[]
+    prueba.append(['cluster'])
+    prueba.append(['cantidad de palabras clave'])
+    prueba.append(['porcentaje de palabras clave'])
+    prueba.append(['principales palabras clave'])
+    aux=0
+    df = pd.DataFrame(df)\
+
     for i in range(len(df['cluster'])):
-        if df['cluster'][i]== pd.NAn:
-            print('null')
-    return df.head(5)
+
+        if pd.isna(df['cluster'][i]):
+            prueba[3][aux].extend([df['principales palabras clave'][i]])
+
+        else:
+            aux+=1
+            prueba[0].extend([df['cluster'][i]])
+            prueba[1].extend([df['cantidad de palabras clave'][i]])
+            prueba[2].extend([df['porcentaje de palabras clave'][i]])
+            prueba[3].extend([[df['principales palabras clave'][i]]])
+
+    df = pd.DataFrame(prueba)
+    df=df.transpose() 
+    df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
+    df=df.drop([0],axis=0).reset_index(drop=True)
+
+    return df
 
 print(ingest_data())
