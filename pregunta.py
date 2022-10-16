@@ -71,7 +71,5 @@ def ingest_data():
         df['principales palabras clave'][aux]= xx
         
         aux+=1
-    df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras clave', 'principales_palabras_clave')
+    df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave')
     return df
-print(ingest_data().principales_palabras_clave.to_list()[0])
-print("maximum power point tracking, fuzzy-logic based control, photo voltaic (pv), photo-voltaic system, differential evolution algorithm, evolutionary algorithm, double-fed induction generator (dfig), ant colony optimisation, photo voltaic array, firefly algorithm, partial shade")
