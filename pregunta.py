@@ -50,7 +50,17 @@ def ingest_data():
     df=df.transpose() 
     df.columns=('cluster', 'cantidad de palabras clave', 'porcentaje de palabras clave', 'principales palabras clave')
     df=df.drop([0],axis=0).reset_index(drop=True)
-
+    aux=0;
+    for i in df['principales palabras clave']:
+        df['principales palabras clave'][aux]=','.join(i)
+        aux+=1
+    aux=0
+    for i in df['principales palabras clave']:
+        dd=[]
+        xx=i.split(',')
+        xxx=[x.split(' ') for x in xx]
+        xxxx=[' '.join(x) for x in xxx]
+        df['principales palabras clave'][aux]= ','.join(xxxx)
+        #" ".join((((("".join(df["principales palabras clave"])).split(','))).split()))
+        aux+=1
     return df
-
-print(ingest_data())
