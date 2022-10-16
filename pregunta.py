@@ -41,9 +41,9 @@ def ingest_data():
 
         else:
             aux+=1
-            prueba[0].extend([df['cluster'][i]])
-            prueba[1].extend([df['cantidad de palabras clave'][i]])
-            prueba[2].extend([df['porcentaje de palabras clave'][i]])
+            prueba[0].extend([int(df['cluster'][i])])
+            prueba[1].extend([int(df['cantidad de palabras clave'][i])])
+            prueba[2].extend([float(df['porcentaje de palabras clave'][i].replace(' %','').replace(',','.'))])
             prueba[3].extend([[df['principales palabras clave'][i]]])
 
     df = pd.DataFrame(prueba)
@@ -64,4 +64,7 @@ def ingest_data():
         #" ".join((((("".join(df["principales palabras clave"])).split(','))).split()))
         aux+=1
     df.columns=('cluster', 'cantidad_de_palabras_clave', 'porcentaje_de_palabras_clave', 'principales_palabras_clave')
+
     return df
+print(ingest_data().principales_palabras_clave.to_list()[0])
+print("maximum power point tracking, fuzzy-logic based control, photo voltaic (pv), photo-voltaic system, differential evolution algorithm, evolutionary algorithm, double-fed induction generator (dfig), ant colony optimisation, photo voltaic array, firefly algorithm, partial shade")
